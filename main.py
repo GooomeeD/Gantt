@@ -954,6 +954,10 @@ for i in range(n):
             obr = ag['VARIABLE'].str.contains(r, na=False)
             ag = ag[obr]
             npc = ag
+
+
+
+
         else:
             r = f'Name_perc_Team_{l + 1}'
             ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
