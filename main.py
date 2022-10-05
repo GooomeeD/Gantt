@@ -981,17 +981,18 @@ for i in range(n):
         perc = npc.iloc[0][4]
         name = npc.iloc[0][5]
 
+        if i not in df2s.keys():
+            raise ValueError('Добавить слайды в код для второго цикла')
+        else:
+            to_slide2 = df2s[l]
+
         # Условие для замены переменных для заполнения массива
         if k == True:
             table_w_arrays = s
             surname = npc.iloc[0][3]
             perc = npc.iloc[0][4]
             name = npc.iloc[0][5]
-
-        if i not in df2s.keys():
-            raise ValueError('Добавить слайды в код для второго цикла')
-        else:
-            to_slide2 = df2s[l]
+            to_slide2 = df2s[i+4]
 
         Sausage2(to_slide1, i + 1, top, array, to_slide2, name, surname, perc, l, array2, lengthA, gponq)
         the_zero +=1
