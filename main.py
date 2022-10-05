@@ -622,8 +622,6 @@ def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, a
             # dfcs = {1: RGBColor(251, 243, 42), 2: (0, 176, 240), 3: slide5Gannt, 4: (160, 208, 123), 5: (175, 171, 171), 6:(244, 102, 119)}
             if lengthA>16:
                 raise ValueError('слишком много подзадач. Проверьте Excel файл')
-            # print(clr)
-            # RGBColor
 
             # if clr not in dfcs.keys():
             #     raise ValueError('Неправильный номер')
@@ -656,7 +654,6 @@ def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, a
 
 
             beg = int(array2.iloc[h][3])
-            # print(beg)
             # if beg>ni or beg>(ni+nj):
             #     raise ValueError('The issue is out of range!')
 
@@ -843,7 +840,6 @@ now_line(now_month, slideGannt)
 
 
 n = len(table_w_arrays)
-# print(n)
 df2s = {0: slide3Gannt, 1: slide4Gannt, 2: slide5Gannt, 3: slide6Gannt, 4: slide7Gannt,
         5: slide8Gannt, 6: slide9Gannt, 7: slide10Gannt,
 8: slide11Gannt, 9: slide12Gannt,10: slide13Gannt}
@@ -858,6 +854,7 @@ Quarters(slideGannt,array, None)
 
 
 for i in range(n):
+    # print(i)
     if i>=5:
         sl = slideGannt2
         top = Cm(3.08) + (i-5) * (Cm(3.0))
@@ -885,10 +882,17 @@ for i in range(n):
 
     r = f'Name_perc_Team_{i + 1}'
     ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
+    # print(ag)
     obr = ag['VARIABLE'].str.contains(r, na=False)
     ag = ag[obr]
     npc = ag
-
+    # if  i == 2:
+    #     print(npc.iloc[0])
+        # print(r)
+        # print(ag)
+        # print(obr.iloc[0])
+        # print(ag[obr].iloc[0][3])
+        # print(npc.iloc[0][3])
     r = f'Issue{i + 1}'
     ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
     obr = ag['VARIABLE'].str.contains(r, na=False)
@@ -922,31 +926,43 @@ for i in range(n):
     # Актуально при количестве предметных областей 5<...<10
     # Будет отрисовываться вычисленное число колбасок
     k = None
-    if i>5:
+    if i>=5:
         le = n-5
         sl = slideGannt2
-        k = True
 
-        # чтобы фильтр с именами подстроилась под
-        r = f'Name_perc_Team_{the_zero + 6}'
-        ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
-        obr = ag['VARIABLE'].str.contains(r, na=False)
-        ag = ag[obr]
-        npc = ag
 
     else:
         sl = slideGannt
         le = 5
-        # чтобы фильтр с именами подстроилась под
-        r = f'Name_perc_Team_{the_zero+1}'
-        ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
-        obr = ag['VARIABLE'].str.contains(r, na=False)
-        ag = ag[obr]
-        npc = ag
+        # # чтобы фильтр с именами подстроилась под
+        # r = f'Name_perc_Team_{i+1}'
+        # ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
+        # obr = ag['VARIABLE'].str.contains(r, na=False)
+        # ag = ag[obr]
+        # npc = ag
 
 
     for l in range(le):
-        print(l)
+        k = None
+
+        if i>=5:
+            k = True
+
+            # чтобы фильтр с именами подстроилась под
+            r = f'Name_perc_Team_{l + 6}'
+            ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
+            obr = ag['VARIABLE'].str.contains(r, na=False)
+            ag = ag[obr]
+            npc = ag
+        else:
+            r = f'Name_perc_Team_{l + 1}'
+            ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
+            obr = ag['VARIABLE'].str.contains(r, na=False)
+            ag = ag[obr]
+            npc = ag
+
+        # if i == 2 and l == 1:
+        #     print(npc.iloc[0][3])
 
         # топ для колбасы
         top = Cm(3.08) + (l) * (Cm(3.0))
