@@ -293,16 +293,11 @@ def Quarters(slide, array, gonq):
     qtop = header_top + Cm(0.8)
     long_line(slide, Cm(4.0), header_top + Cm(0.7), RGBColor(70, 72, 83), Pt(0.00001))
 
-    if slide == slideGannt:
+    if slide == slideGannt or slide == slideGannt2:
         array = [1] * len(array)
         mod3 = len(array) // 3
-
         margin = Cm(lean / mod3)
-        first = ((array.index(1) // 3) * margin) + margin + Cm(0.6)
-        # textshape(slide, first - Cm(1.8), qtop - Cm(0.21), Cm(2), Cm(1.09), RGBColor(255, 255, 255), Pt(9),
-        #           'Segoe UI Black', 'Progress')
-        # count = array.count(1) // 3 * (margin) для примоугольника вокруг процентов
-        # rectangler(slide, first, Cm(1.49), count, Cm(1.09), RGBColor(150,12,49))
+
     else:
         mod3 = len(array) // 3
         lean = 22.51
@@ -317,7 +312,7 @@ def Quarters(slide, array, gonq):
         name = table_w_quartres.iloc[i][3]
         if 1 in array[:3]:
             qshape(slide, l0, 1, name)
-            if slide != slideGannt:
+            if slide != slideGannt and slide != slideGannt2:
                 onq = int(gonq.iloc[i][3])
                 height_onq = Cm(onq / 100 * 2.6)
                 rectangler(slide, l0, qtop, height_onq, Cm(0.3), 2, Pt(0.3), RGBColor(49, 51, 68))
@@ -724,6 +719,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
                     liner(shape2, Pt(0.003), RGBColor(251, 243, 42))
 
                     flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
                 if color == 2:
@@ -731,6 +727,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
                     liner(shape2, Pt(0.003), RGBColor(0, 176, 240))
 
                     flowchart_shape(RGBColor(0, 176, 240), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
                 if color == 3:
@@ -738,6 +735,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
 
                     liner(shape2, Pt(0.003), RGBColor(47, 85, 151))
                     flowchart_shape(RGBColor(47, 85, 151), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
                 if color == 4:
@@ -745,6 +743,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
 
                     liner(shape2, Pt(0.003), RGBColor(160, 208, 123))
                     flowchart_shape(RGBColor(160, 208, 123), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
                 if color == 5:
@@ -752,6 +751,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
                     liner(shape2, Pt(0.003), RGBColor(175, 171, 171))
 
                     flowchart_shape(RGBColor(175, 171, 171), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
                 if color == 6:
@@ -759,6 +759,7 @@ def Sausage(array, to_slide, top, tuple, name, surname, perc, sl = None):
                     liner(shape2, Pt(0.003), RGBColor(244, 102, 119))
 
                     flowchart_shape(RGBColor(244, 102, 119), top1, slideGannt)
+                    flowchart_shape(RGBColor(251, 243, 42), top1, slideGannt2)
 
                     top1 = top1 + Cm(0.45)
 
@@ -862,7 +863,7 @@ aloc = list(str(aloc))
 array = [int(item) for item in aloc]
 
 Quarters(slideGannt,array, None)
-# Quarters(slideGannt2, array, None)
+Quarters(slideGannt2, array, None)
 
 
 for i in range(n):
@@ -898,18 +899,16 @@ for i in range(n):
     obr = ag['VARIABLE'].str.contains(r, na=False)
     ag = ag[obr]
     npc = ag
-    # if  i == 2:
-    #     print(npc.iloc[0])
-        # print(r)
-        # print(ag)
-        # print(obr.iloc[0])
-        # print(ag[obr].iloc[0][3])
-        # print(npc.iloc[0][3])
+
+
     r = f'Issue{i + 1}'
     ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
     obr = ag['VARIABLE'].str.contains(r, na=False)
     ag = ag[obr]
     tuple = ag
+
+    if i==5:
+        print(tuple)
 
 
     surname = npc.iloc[0][3]
