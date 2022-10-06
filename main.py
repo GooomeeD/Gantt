@@ -44,7 +44,7 @@ obr = ag['VARIABLE'].str.contains(r, na=False)
 # print(len(ag[obr[True]]))
 ag = ag[obr]
 table_w_arrays = ag
-s = table_w_arrays[5:]
+# s = table_w_arrays[5:]
 # print(s.iloc[1][3])
 
 
@@ -544,7 +544,7 @@ def hex_to_rgb(value):
 
 
 
-def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, array2, lengthA, gponq):
+def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, array2, lengthA, gponq, i):
 
     ni = array.index(1)
     # print(ni)
@@ -552,6 +552,12 @@ def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, a
     nj = array.count(1)
     length = 19.95 / len(array)
     lni = length * ni
+    if i>=5:
+        l = l+5
+        to_slide1 = slideGannt2
+    else:
+        to_slide1 = slideGannt
+
 
     if l != slideNumber - 1:
         left = Cm(5.39 + lni)
@@ -568,12 +574,11 @@ def Sausage2(slide, slideNumber, top, array, to_slide, name, surname, perc, l, a
     else:
         Quarters(slide, array, gponq)
 
-        to_slide1 = slideGannt
         not_selected2(slide, to_slide1, Cm(5.39), top, perc, name, surname)
         # проверяем количество подзадач (если больше двух, то увеличиваем их высоту)
         if lengthA > 2:
             # номера слайдов - 4 или 5,то поднимаем блоки вверх
-            if (l == 4 or l == 3):
+            if (l == 4 or l == 3 or l == 8 or l == 9):
                 remain = lengthA - 2
                 height = Cm(0.7) * remain
                 top = top - height + Cm(1.4)
@@ -835,6 +840,13 @@ bg(slide12Gannt)
 slide13Gannt = pr1.slides.add_slide(layouts)
 bg(slide13Gannt)
 
+slide14Gannt = pr1.slides.add_slide(layouts)
+bg(slide14Gannt)
+
+slide15Gannt = pr1.slides.add_slide(layouts)
+bg(slide15Gannt)
+
+
 now_month = now.month
 now_line(now_month, slideGannt)
 
@@ -842,7 +854,7 @@ now_line(now_month, slideGannt)
 n = len(table_w_arrays)
 df2s = {0: slide3Gannt, 1: slide4Gannt, 2: slide5Gannt, 3: slide6Gannt, 4: slide7Gannt,
         5: slide8Gannt, 6: slide9Gannt, 7: slide10Gannt,
-8: slide11Gannt, 9: slide12Gannt,10: slide13Gannt}
+8: slide11Gannt, 9: slide12Gannt,10: slide13Gannt, 11: slide14Gannt, 12: slide15Gannt}
 
 aloc = dfMaster.loc[(dfMaster.SLIDE == 'Gantt') & (dfMaster.VARIABLE == f'Array_{1}')]
 aloc = aloc.iloc[0][3]
@@ -854,7 +866,7 @@ Quarters(slideGannt,array, None)
 
 
 for i in range(n):
-    # print(i)
+    # print(table_w_arrays)
     if i>=5:
         sl = slideGannt2
         top = Cm(3.08) + (i-5) * (Cm(3.0))
@@ -934,12 +946,6 @@ for i in range(n):
     else:
         sl = slideGannt
         le = 5
-        # # чтобы фильтр с именами подстроилась под
-        # r = f'Name_perc_Team_{i+1}'
-        # ag = dfMaster.loc[(dfMaster.SLIDE == f'Gantt')]
-        # obr = ag['VARIABLE'].str.contains(r, na=False)
-        # ag = ag[obr]
-        # npc = ag
 
 
     for l in range(le):
@@ -988,13 +994,17 @@ for i in range(n):
 
         # Условие для замены переменных для заполнения массива
         if k == True:
-            table_w_arrays = s
+            # table_w_arrays = s
             surname = npc.iloc[0][3]
             perc = npc.iloc[0][4]
             name = npc.iloc[0][5]
-            to_slide2 = df2s[i+4]
+            to_slide2 = df2s[l+5]
+            aloc = table_w_arrays.iloc[l+5][3].replace(',', '')
+            aloc = list(str(aloc))
+            array = [int(item) for item in aloc]
 
-        Sausage2(to_slide1, i + 1, top, array, to_slide2, name, surname, perc, l, array2, lengthA, gponq)
+
+        Sausage2(to_slide1, i + 1, top, array, to_slide2, name, surname, perc, l, array2, lengthA, gponq, i)
         the_zero +=1
 
 
